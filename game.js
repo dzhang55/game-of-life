@@ -73,7 +73,6 @@ function neighbors(i, j) {
 }
 
 function tick() {
-  console.log(this.board);
   for (var i = 0; i < this.board.length; i++) {
     for (var j = 0; j < this.board.length; j++) {
       if (this.board[i][j]) {
@@ -84,7 +83,7 @@ function tick() {
     }
   }
   this.board = this.newBoard;
-  this.newBoard = this.board.slice(0);
+  this.newBoard = deepClone(this.board);
   if (this.isBoardDead()) {
     clearInterval(this.timer);
     //io.sockets.in(this.id).emit("game over", this.board);
@@ -102,8 +101,15 @@ function checkBirth(i, j) {
 }
 function checkDeath(i, j) {
   var count = this.neighbors(i, j);
-  console.log(count);
   if (count > 3 || count < 2) {
     this.newBoard[i][j] = false;
   }
+}
+
+function deepClone(board) {
+  clone = [];
+  for (var i = 0; i < board.length; i++) {
+    clone[i] = board[i].slice(0);
+  }
+  return clone;
 }
