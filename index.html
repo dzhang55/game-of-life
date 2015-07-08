@@ -1,0 +1,46 @@
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="./styles/gameoflifestyle.css"></link>
+  <title>Game of Life</title>
+  <script src="./game.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="./client.js"></script>
+  
+</head>
+<body>
+  <button id="start_button">Start Game</button>
+  <div class="board" id="board"></div>
+</body>
+
+<script id="initial_screen" type="text/template">
+
+<div>
+    <h1>Create a new Game</h1>
+    <button id="start_button">Start Game</button>
+    <br />
+    <button id="join_game_button">Join Game</button>
+    <input id="join_game_in" type="text"/>
+</div>
+
+</script>
+
+
+
+<script id="game_screen" type="text/template">
+
+<div>
+    <h1 id="game_id"></h1>
+    <p id='opponent'>Waiting for other player...</p>
+ <div id='gamecontrols'>
+ <button id="refresh">New Game</button>
+ </div>
+ <div>
+   <h2 id='gamestatus'>WINNER!</h2>
+ </div>
+  <div id="gameboard">
+  </div>
+</div>
+
+</script>
