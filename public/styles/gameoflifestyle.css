@@ -5,8 +5,9 @@
 }
 
 .square:hover {
-  transition: background-color .25s ease-in-out;
-  background-color: #d0d0d0;
+  transition: background-color .1s ease-in-out;
+  background-color: #d0d0d0 !important;
+  border-color: red;
 }
 
 .row {
@@ -17,8 +18,28 @@
 }
 
 .board {
+  left: 15px;
+  position: absolute;
   display: flex;
   flex-direction: column;
-  height: 800px;
-  width: 800px;
+  height: 100%;
+  width: 100%;
+}
+
+.board-container {
+	margin: 0 auto;
+	position: relative;
+	height: 800px;
+	width: 800px;
+}
+
+.overlay {
+	position: absolute;
+	display: none;
+	text-align: center;
+	line-height: 800px;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	background-color: rgba(208, 208, 208, 0.5);
 }

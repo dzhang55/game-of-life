@@ -1,5 +1,7 @@
-module.exports = function (id, length, socket) {
-  this.socket = socket;
+
+
+module.exports = function (id, length, io) {
+  this.io = io;
   this.id = id;
   this.neighbors = neighbors;
   this.tick = tick;
@@ -7,6 +9,7 @@ module.exports = function (id, length, socket) {
   this.checkBirth = checkBirth;
   this.checkDeath = checkDeath;
   this.run = run;
+  this.pause = pause;
   this.flip = flip;
   this.board = [];
   this.newBoard = [];
@@ -21,7 +24,7 @@ module.exports = function (id, length, socket) {
 }
 
 function flip(x, y) {
-  this.newBoard[x][y] = !this.newBoard[x][y];
+  this.board[x][y] = !this.board[x][y];
 }
 
 function isBoardDead() {
@@ -36,11 +39,15 @@ function isBoardDead() {
 }
 
 function run() {
-  console.log(this.tick);
+  this.newBoard = deepClone(this.board);
   var game = this;
   // make an anonymous function so that call() works in setInterval
   // creates variable game because otherwise this would refer to the scope of the anonymous function
   game.timer = setInterval(function() {tick.call(game)}, 1000);
+}
+
+function pause() {
+  clearInterval(this.timer);
 }
 
 function neighbors(i, j) {
@@ -87,11 +94,11 @@ function tick() {
   if (this.isBoardDead()) {
     clearInterval(this.timer);
     //io.sockets.in(this.id).emit("game over", this.board);
-    this.socket.emit("game over", this.board);
+    this.socket.emit("game over");
   }
   console.log("tick");
-  //io.sockets.in(this.id).emit('board', this.board);
-  this.socket.emit("board", this.board);
+  this.io.sockets.in(this.id).emit('board', this.board);
+  //this.socket.emit("board", this.board);
 }
 function checkBirth(i, j) { 
   var count = this.neighbors(i, j);
